@@ -1,18 +1,13 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Build JsCanvas Page
 
 on:
-  # Only run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -22,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
             repository: miuix-kotlin-multiplatform/miuix
             ref: main
             fetch-depth: 0
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'zulu'
           java-version: '21'
@@ -36,13 +31,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
       - name: Build JS Distribution
         run: |
-          ./gradlew :example:jsBrowserDistribution
+          ./gradlew :example:js:jsBrowserDistribution
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: ./example/build/dist/js/productionExecutable
+          path: ./example/js/build/dist/js/productionExecutable
 
   deploy:
     environment:
