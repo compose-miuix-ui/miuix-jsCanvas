@@ -37,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./example/js/build/dist/js/productionExecutable
+          path: ./example/web/build/dist/js/productionExecutable
 
   deploy:
     environment:
